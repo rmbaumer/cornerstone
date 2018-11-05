@@ -11,129 +11,136 @@
 //
 // -----------------------------------------------------------------------------
 
-
 .card-figure {
     margin-top: $card-figure-marginTop;
-    position: relative;
     &:hover {
-
         // scss-lint:disable NestingDepth
         .card-figcaption {
             opacity: 1;
         }
     }
 }
-
-.card-img-container {
-    max-width: get-width(stencilString('productgallery_size'));
-
-    @include lazy-loaded-padding('productgallery_size');
-}
-
 .card-figcaption {
     display: none;
     margin: $card-figcaption-margin;
     pointer-events: none; // 1
-
     @include breakpoint("medium") {
         display: block;
     }
 }
-
 .card-figcaption-body {
     display: $card-figcaption-body-display;
-    pointer-events: all; // 1
-    transform: translate3d(0, -50%, 0); // 2
 }
-
-.card-image {
-    @include lazy-loaded-img;
-    border: 0;
-    width: auto;
-    max-height: 100%;
+.card-body .card-figcaption-body {
+    display: $card-figcaption-body-display;
+    top: 0;
+    transform: initial;
 }
-
-.card-title {
-    font-size: $card-title-fontSize;
-    margin: $card-title-margin;
-
-    > a {
-        color: $card-title-color;
-        text-decoration: $card-title-textDecoration;
-
-        // scss-lint:disable NestingDepth
-        &:hover {
-            color: $card-title-color-hover;
+.card-body .card-figcaption-button {
+    background-color: transparent;
+    color: #fff;
+    background: #424546;
+    padding: 7px 20px 8px;
+    text-transform: uppercase;
+    border: 1px solid #303334 !important;
+    font-family: "Arial", sans-serif;
+    font-weight:500;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+.card-body .card-figcaption-body {
+    .product-rating{
+        line-height:25px;
+    }
+    .compare-button{
+        background: transparent;
+        border: none !important;
+        vertical-align: middle;
+        color: #424242;
+        font-size: 14px;
+        text-transform: capitalize;
+        padding:0;
+        input{
+            vertical-align: middle;
+            margin-right: 10px;    
         }
     }
 }
-
+.card-image {
+    border: 0;
+    display: flex;
+    margin: auto;
+    width: auto;
+}
+.card-title {
+    font-size: 14px;
+    margin: $card-title-margin;
+    text-transform: none;
+    > a {
+        color: #424242;
+        text-decoration: none;
+        font-family: "Arial", sans-serif;
+        text-align: center;
+        font-size: 14px;
+        // scss-lint:disable NestingDepth
+        &:hover {
+            color: #b40000;
+        }
+    }
+}
 .card-text {
     margin-bottom: $card-text-marginBottom;
-
+    color: #424242 !important;
     abbr {
         border: 0;
         color: inherit;
         font-size: inherit;
     }
 }
-
 .card-figcaption-button {
     border: $card-figcaption-button-border;
     display: $card-figcaption-button-display;
     margin: $card-figcaption-button-margin;
-
     &:active {
-        background-color: $card-figcaption-button-backgroundHover;
+        background-color: #424546;
         border: $card-figcaption-button-border;
     }
-
     + .card-figcaption-button {
         margin: $card-figcaption-button-margin;
     }
 }
-
 .card-body {
     text-align: center;
-
     @include breakpoint("small") {
-        text-align: left;
+        text-align: center;
     }
 }
-
 
 //
 // Alternate card
 //
 // Purpose: Used to give the card alternative styling
 // -----------------------------------------------------------------------------
-
 .card--alternate {
     border: 3px solid stencilColor("card--alternate-borderColor");
     transition: all 0.15s ease;
-
     .card-body {
         background-color: stencilColor("card--alternate-backgroundColor");
         padding: spacing("half");
         transition: all 0.15s ease;
-
         @include breakpoint("small") {
             padding: spacing("single");
         }
     }
-
     &:hover {
         border-color: stencilColor("color-primary");
-
         // scss-lint:disable SelectorDepth, NestingDepth
         .card-body {
             background-color: stencilColor("color-primary");
-
             .card-text {
-                color: stencilColor("card--alternate-color--hover");
+                color: #424242;
             }
         }
-
         .card-title > a {
             color: stencilColor("card--alternate-color--hover");
         }

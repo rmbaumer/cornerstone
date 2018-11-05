@@ -1,4 +1,4 @@
-<article class="card {{#if alternate}}card--alternate{{/if}}" {{#if settings.data_tag_enabled}} data-event-type="{{event}}" data-entity-id="{{id}}" data-position="{{position}}" data-name="{{name}}" data-product-category="{{#each category}}{{#if @last}}{{this}}{{else}}{{this}}, {{/if}}{{/each}}" data-product-brand="{{brand.name}}" data-product-price="{{#if price.with_tax}}{{price.with_tax.value}}{{else}}{{price.without_tax.value}}{{/if}}"  {{/if}}>
+<article class="card {{#if alternate}}card--alternate{{/if}}">
     <figure class="card-figure">
         {{#or price.non_sale_price_with_tax price.non_sale_price_without_tax}}
             {{#if theme_settings.product_sale_badges '===' 'sash'}}
@@ -17,14 +17,10 @@
             {{/if}}
         {{/or}}
         {{#if demo}}
-            <div class="card-img-container">
-                <img class="card-image lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage image 'productgallery_size' (cdn theme_settings.default_image_product)}}" alt="{{image.alt}}" title="{{image.alt}}">
-            </div>
+            <img class="card-image lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage image 'productgallery_size' (cdn theme_settings.default_image_product)}}" alt="{{image.alt}}" title="{{image.alt}}">
         {{else}}
-            <a href="{{url}}" {{#if settings.data_tag_enabled}} data-event-type="product-click" {{/if}}>
-                <div class="card-img-container">
-                    <img class="card-image lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage image 'productgallery_size' (cdn theme_settings.default_image_product)}}" alt="{{image.alt}}" title="{{image.alt}}">
-                </div>
+            <a href="{{url}}">
+                <img class="card-image lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage image 'productgallery_size' (cdn theme_settings.default_image_product)}}" alt="{{image.alt}}" title="{{image.alt}}">
             </a>
         {{/if}}
         <figcaption class="card-figcaption">
@@ -32,46 +28,14 @@
                 {{#unless hide_product_quick_view}}
                     {{#if theme_settings.show_product_quick_view}}
                         {{#unless demo}}
-                            {{#if settings.data_tag_enabled}}
-                                <a href="#" class="button button--small card-figcaption-button quickview" data-event-type="product-click" data-product-id="{{id}}">{{lang 'products.quick_view'}}</a>
-                            {{else}}
-                                <a href="#" class="button button--small card-figcaption-button quickview" data-product-id="{{id}}">{{lang 'products.quick_view'}}</a>
-                            {{/if}}
+                            <a href="#" class="button button--small card-figcaption-button quickview" data-product-id="{{id}}">{{lang 'products.quick_view'}}</a>
                         {{/unless}}
                     {{/if}}
                 {{/unless}}
-                {{#if show_compare}}
-                    <label class="button button--small card-figcaption-button" for="compare-{{id}}">
-                        {{lang 'products.compare'}} <input type="checkbox" name="products[]" value="{{id}}" id="compare-{{id}}" data-compare-id="{{id}}">
-                    </label>
-                {{/if}}
-                {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
-                    {{#if show_cart_action}}
-                        {{#if has_options}}
-                            <a href="{{url}}" data-event-type="product-click" class="button button--small card-figcaption-button" data-product-id="{{id}}">{{lang 'products.choose_options'}}</a>
-                        {{/if}}
-                        {{#if pre_order}}
-                            <a href="{{pre_order_add_to_cart_url}}" data-event-type="product-click" class="button button--small card-figcaption-button">{{lang 'products.pre_order'}}</a>
-                        {{/if}}
-                        {{#if add_to_cart_url }}
-                            <a href="{{add_to_cart_url}}" data-event-type="product-click" class="button button--small card-figcaption-button">{{lang 'products.add_to_cart'}}</a>
-                        {{/if}}
-                        {{#if out_of_stock_message }}
-                            <a href="{{url}}" data-event-type="product-click" class="button button--small card-figcaption-button" data-product-id="{{id}}">{{out_of_stock_message}}</a>
-                        {{/if}}
-                    {{/if}}
-                {{/or}}
             </div>
         </figcaption>
     </figure>
     <div class="card-body">
-        {{#and rating show_rating}}
-            <p class="card-text" data-test-info-type="productRating">
-                <span class="rating--small">
-                    {{> components/products/ratings rating=rating}}
-                </span>
-            </p>
-        {{/and}}
         {{#if brand.name}}
             <p class="card-text" data-test-info-type="brandName">{{brand.name}}</p>
         {{/if}}
@@ -79,17 +43,49 @@
             {{#if demo}}
                 {{name}}
             {{else}}
-                <a href="{{url}}" {{#if settings.data_tag_enabled}} data-event-type="product-click" {{/if}}>{{name}}</a>
+                <a href="{{url}}">{{name}}</a>
             {{/if}}
         </h4>
 
         <div class="card-text" data-test-info-type="price">
             {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
-                {{> components/products/price price=price}}
+                {{> components/products/price price=price customer=customer}}
             {{else}}
                 {{> components/common/login-for-pricing}}
             {{/or}}
         </div>
         {{> components/products/bulk-discount-rates}}
+        <div class="card-figcaption-body">
+            {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+                {{#if show_cart_action}}
+                    {{#if has_options}}
+                        <a href="{{url}}" class="button button--small card-figcaption-button" data-product-id="{{id}}">{{lang 'products.choose_options'}}</a>
+                    {{/if}}
+                    {{#if pre_order}}
+                        <a href="{{pre_order_add_to_cart_url}}" class="button button--small card-figcaption-button">{{lang 'products.pre_order'}}</a>
+                    {{/if}}
+                    {{#if add_to_cart_url }}
+                        <a href="{{add_to_cart_url}}" class="button button--small card-figcaption-button">{{lang 'products.add_to_cart'}}</a>
+                    {{/if}}
+                    {{#if out_of_stock_message }}
+                        <a href="{{url}}" class="button button--small card-figcaption-button" data-product-id="{{id}}">{{out_of_stock_message}}</a>
+                    {{/if}}
+                {{/if}}
+            {{/or}}
+            {{#if show_rating}}
+                {{#if rating '>' 0}}
+                <p class="card-text product-rating" data-test-info-type="productRating">
+                    <span class="rating--small">
+                        {{> components/products/ratings rating=rating}}
+                    </span>
+                </p>
+                {{/if}}
+            {{/if}}
+            {{#if show_compare}}
+                <label class="compare-button button button--small card-figcaption-button" for="compare-{{id}}">
+                    <input type="checkbox" name="products[]" value="{{id}}" id="compare-{{id}}" data-compare-id="{{id}}">{{lang 'products.compare'}} 
+                </label>
+            {{/if}}
+        </div>
     </div>
 </article>

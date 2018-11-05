@@ -61,15 +61,7 @@
 }
 
 .blog-thumbnail {
-    margin: 0 auto (spacing("base") * 2);
-    position: relative;
-    max-width: get_width(stencilString('blog_size'));
-
-    img {
-        @include lazy-loaded-img;
-    }
-
-    @include lazy-loaded-padding('blog_size');
+    margin: 0 0 (spacing("base") * 2);
 }
 
 .blog-post-figure {
@@ -78,7 +70,7 @@
     text-align: center;
 
     @include breakpoint("medium") {
-        width: grid-calc(8, $total-columns);
+        // width: grid-calc(8, $total-columns);
     }
 }
 
@@ -93,10 +85,10 @@
     }
 
     @include breakpoint("medium") {
-        width: grid-calc(8, $total-columns);
+        width: grid-calc(10, $total-columns);
     }
 
     @include breakpoint("large") {
-        width: grid-calc(6, $total-columns);
+        width: grid-calc(10, $total-columns);
     }
 }

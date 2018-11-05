@@ -9,12 +9,8 @@
 //    margin. This centers the text logo properly.
 // 4. When the word "cart" is added to the mobile header's cart link, add more
 //    margin to compensate.
-// 5. When logo size is set to "original", we don't have advance knowledge of the
-//    image size, so we can't use absolute positioning + padding to reserve space
-//    for lazy loading.
 //
 // -----------------------------------------------------------------------------
-
 .header {
     background-color: $header-bg;
     border-bottom: container("border");
@@ -22,36 +18,134 @@
     top: 0;
     width: 100%;
     z-index: zIndex("low");
-
     @include breakpoint("medium") {
         border-bottom: container("border");
         overflow: visible;
         position: relative;
     }
-
     &.is-open {
         height: 100%;
-
         @include breakpoint("medium") {
             height: auto;
         }
     }
 }
-
+.header .searchwrapper{
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    border-bottom: 1px solid #e8e8e8;
+}
+.header .info-col {
+    display: none;
+    float: right;
+    margin-top: remCalc(10);
+    vertical-align: middle;
+    .quickSearch {
+        float: right;
+        margin: 0;
+        position: relative;
+        .form-input {
+            border: 1px solid #aeaeae;
+            border-radius: remCalc(4) 0 0 remCalc(4);
+            border-right: 0;
+            float: left;
+            height: remCalc(40);
+            padding: 0 remCalc(10);
+            width: remCalc(310);
+        }
+        .form-submit {
+            background: url('//www.firereplicas.com/content/search.svg') center center no-repeat;
+            border: 1px solid #cecece;
+            border-left: 0;
+            border-radius: 0 remCalc(4) remCalc(4) 0;
+            float: left;
+            height: remCalc(40);
+            text-indent: -999rem;
+            width: remCalc(40);
+        }
+    }
+    .header-social {
+        float: left;
+        .socialLinks {
+            line-height: remCalc(24);
+            margin: 0;
+            .socialLinks-item {
+                margin-bottom: 0;
+                vertical-align: top;
+                .icon {
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+    .phone-social {
+        margin: 0 0 remCalc(15);
+        .head-phone {
+            border-right: 1px solid #333;
+            float: left;
+            font-size: remCalc(16);
+            margin: 0 remCalc(15) 0 0;
+            padding: 0 remCalc(10) 0 0;
+            text-transform: uppercase;
+            a {
+                font-size: remCalc(16);
+                text-decoration: none;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+        &:after {
+            clear: both;
+            content: '';
+            display: block;
+        }
+    }
+    @include breakpoint("medium") {
+        display: block;
+    }
+}
+.header .quickSearch .form {
+    margin: 0;
+}
+.header .quickSearch .form-field {
+    margin: 0;
+    position: relative;
+}
+.header .top-info-menu{
+    margin-top: 15px;
+    float: right;
+    display: block;
+}
+.header .top-info-menu ul li{
+    border-left: 1px solid #74746F;
+    margin-left: 12px;
+    padding-left: 12px;
+    line-height: 12px;
+}
+.header .top-info-menu ul li:first-child{
+    border-left:none;
+}
+.header .top-info-menu .navPages-action {
+    padding: 0px;
+    font-weight: 400;
+    font-size: 12px;
+    font-family: "Open Sans", "Helvetica", "Arial", sans-serif;
+}
 .header-logo {
     font-size: 0;   // 1
     margin: 0 remCalc($header-toggle-width); // 2
     text-align: center;
-
     @include breakpoint("small") { // 4
         margin-left: remCalc($header-toggle-width * 1.5);
         margin-right: remCalc($header-toggle-width * 1.5);
     }
-
     @include breakpoint("medium") {
-        margin: (spacing("double") + spacing("base")) auto (spacing("double") + spacing("single"));
+        margin: 0;
         padding: 0;
-
+        text-align: left;
+        display: inline-block;
         .header.fixed & {
             background-color: color("greys", "lightest");
             margin: 0;
@@ -61,7 +155,6 @@
             width: 100%;
         }
     }
-
     > a {
         @include clearfix;
         color: $storeName-color;
@@ -69,52 +162,35 @@
         padding: $header-logo-paddingVertical 0;
         position: relative;
         text-decoration: none;
-        width: 60%;
+        width: 100%;
         z-index: zIndex("low");
-
         // scss-lint:disable NestingDepth
         @include breakpoint("medium") {
             background: none;
             border-bottom: 0;
             display: inline;
             padding: 0;
-            width: 100%;
         }
-
         &:hover {
             color: color("link", "hover");
         }
-
         &:active {
             color: color("link", "active");
         }
     }
 }
-
 .header-logo--left {
     text-align: left;
-
     @include breakpoint("medium") {
         margin-left: remCalc(40px);
     }
-
-    .header-logo-image {
-        right: unset;
-    }
 }
-
 .header-logo--right {
     text-align: right;
-
     @include breakpoint("medium") {
         margin-right: remCalc(40px);
     }
-
-    .header-logo-image {
-        left: unset;
-    }
 }
-
 .header-logo-text {
     display: block;
     font-family: $fontFamily-hero;
@@ -128,14 +204,12 @@
     text-overflow: ellipsis;
     text-transform: uppercase;
     white-space: nowrap;
-
     @include breakpoint("small") {
         font-size: $fontSize-logo-medium;
         letter-spacing: remCalc(9px);
         padding-bottom: 0;
         padding-top: 0;
     }
-
     @include breakpoint("medium") {
         display: inline;
         font-size: $fontSize-logo-large;
@@ -144,50 +218,44 @@
         max-width: none;
         overflow: auto;
         white-space: normal;
-
         .header.fixed & {
             font-size: fontSize("larger");
         }
     }
 }
-
-.header-logo-image-container {
-    position: relative;
-}
-
-.header-logo-image-container:after {
-    content: '';
-    display: block;
-    padding-bottom: remCalc($header-height) - $header-logo-marginVertical * 2;
-
-    @include breakpoint("medium") {
-        padding-bottom: get-height(stencilString('logo_size'));
-    }
-}
-
 .header-logo-image {
-    @include lazy-loaded-img;
-    max-height: remCalc($header-height) - $header-logo-marginVertical * 2;
-
+    max-height: remCalc(50);
     @include breakpoint("medium") {
         max-height: none;
     }
 }
-
-.header-logo-image-unknown-size { // 5
-    max-height: remCalc($header-height) - $header-logo-marginVertical * 2;
-
+.mobile-phone {
+    background: #424546;
+    color: #fff;
+    font-size: 1rem;
+    height: remCalc(40);
+    letter-spacing: 1px;
+    line-height: remCalc(40);
+    text-align: center;
+    text-transform: uppercase;
+    z-index: 60;
+    a {
+        color: #fff;
+        text-decoration: none;
+        &:hover {
+            color: #ccc;
+            text-decoration: underline;
+        }
+    }
     @include breakpoint("medium") {
-        max-height: none;
+        display: none;
     }
 }
-
 //
 // Mobile Menu Toggle
 //
 // 1. Animate lines from 'x' to hamburger
 // -----------------------------------------------------------------------------
-
 .mobileMenu-toggle {
     @include square($header-toggle-width);
     display: inline-block;
@@ -196,12 +264,11 @@
     overflow: hidden;
     padding: 0 remCalc(18);
     position: absolute;
+    top: remCalc(40);
     z-index: zIndex("high");
-
     @include breakpoint("medium") {
         display: none;
     }
-
     .mobileMenu-toggleIcon,
     .mobileMenu-toggleIcon::before,
     .mobileMenu-toggleIcon::after {
@@ -214,24 +281,19 @@
         transition: transform 100ms ease-in, top 100ms ease-in 150ms, bottom 100ms ease-in 150ms; // 1
         width: remCalc(20);
     }
-
     .mobileMenu-toggleIcon {
         top: remCalc(27);
         transition: background-color 10ms ease-in 100ms;
     }
-
     .mobileMenu-toggleIcon::before {
         top: -0.5rem;
     }
-
     .mobileMenu-toggleIcon::after {
         bottom: -0.5rem;
     }
-
     &.is-open .mobileMenu-toggleIcon {
         background-color: transparent;
         transition-delay: 100ms;
-
         // scss-lint:disable NestingDepth
         &::before,
         &::after {
@@ -240,16 +302,102 @@
             top: auto;
             transition: transform 100ms ease-in 150ms, top 100ms ease-in, bottom 100ms ease-in; // Animate lines from hamburger to 'x'
         }
-
         &::before {
             top: 0;
             transform: rotate(45deg);
         }
-
         &::after {
             bottom: 0;
             transform: rotate(-45deg);
         }
-
+    }
+}
+@media screen and (min-width: 801px) {
+    .quickSearchResults {
+        margin-top: 0;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        padding-top: 20px;
+        z-index: 999;
+        background: #fff;
+        
+    }
+    .modal-close {
+        top: -5px;
+        right: 0;
+    }
+    .quickSearchResults .productGrid .product:hover {
+        background: #eee;
+    }
+    .quickSearchResults .productGrid {
+        margin:0;
+    }
+    .quickSearchResults .productGrid .product {
+        width: 100%;
+    }
+    .quickSearchResults .productGrid .product .card {
+        margin: 5px 0;
+    }
+    .quickSearchResults .productGrid .product .card-figure {
+        margin-top: 0;
+        width: 30%;
+        display: inline-block;
+        vertical-align: top;
+    }
+    .quickSearchResults .productGrid .product .card-body{
+        width: 68%;
+        display: inline-block;
+        text-align: left;
+        padding: 5px;
+        background-color: transparent;
+    }
+    .quickSearchResults .productGrid .product .card--alternate {
+        border-bottom: 1px solid #4f4f4f !important;
+        border: none;
+    }
+    .quickSearchResults .productGrid .product .card-title > a {
+        font-size: 12px;
+        color: #b40000;
+    }
+    .quickSearchResults .productGrid .product .card-title {
+        font-size: 12px;
+    }
+    .quickSearchResults .productGrid .product .card--alternate:hover .card-title > a {
+        color: #b40000;
+        text-decoration: underline;
+    }
+    
+}
+@media screen and (max-width: 800px) {
+    .header .top-info-menu {
+        display: none;
+    }
+    .header .searchwrapper {
+        padding: 0;
+    }
+    .navPage-subMenu-action {
+        padding: 2px 0;
+    }
+    .navPages-action {
+        font-size: 14px;
+        padding: 2px 0;
+    }
+    .header .quickSearch {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #111111;
+        padding: 8px 10px;
+    }
+    .quickSearchResults {
+        margin-top: 0;
+    }
+    .header .info-col {
+        margin-top: 0;
+    }
+    .header .searchwrapper {
+        border-bottom: none;
     }
 }

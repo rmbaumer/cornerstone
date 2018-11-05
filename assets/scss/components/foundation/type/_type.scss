@@ -9,6 +9,7 @@
 body {
     font-size: $body-fontSize;
     font-weight: $body-font-weight;
+    font-family: "Arial", sans-serif!important;
 }
 
 h1,
@@ -19,6 +20,10 @@ h5,
 h6 {
     font-weight: $header-font-weight;
     margin-top: $heading-marginTop;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: "Arial", sans-serif!important;
 }
 
 h5,

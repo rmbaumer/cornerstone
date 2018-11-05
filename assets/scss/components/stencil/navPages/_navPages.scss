@@ -57,7 +57,7 @@
 
     &.is-open {
         display: block;
-        padding-top: $header-height;
+        padding-top: $header-height + 40px;
         z-index: 0;
     }
 }
@@ -189,7 +189,7 @@
     color: stencilColor("navPages-color");
     display: block;
     font-size: fontSize("smaller");
-    font-weight: fontWeight("bold");
+    font-weight: fontWeight("normal");
     padding: spacing("half") 0;
     text-decoration: none;
     text-transform: uppercase;
@@ -452,5 +452,12 @@
         a {
             padding: spacing("half") spacing("single");
         }
+    }
+}
+
+.hide-top {
+    display: block;
+    @include breakpoint("medium") {
+        display: none;
     }
 }

@@ -30,37 +30,21 @@
         min-width: inherit;
     }
 
-    + .productView-thumbnails {
-        margin-top: spacing("half");
-    }
-
-    @media (min-width: $screen-xxsmall) and (max-width: $screen-medium) {
-        pointer-events: none;
-    }
-}
-
-.productView-img-container {
-    position: relative;
-    margin: auto;
-    max-width: get-width(stencilString('product_size'));
-    width: 100%;
-
     img {
-        @include lazy-loaded-img;
-        max-height: 100%;
+        width: 100%;
+    }
+
+    .productView-image--default {
         width: auto;
     }
 
-    @include lazy-loaded-padding('product_size');
+    + .productView-thumbnails {
+        margin-top: spacing("half");
+    }
 }
 
 .productView-thumbnails {
     @include u-listBullets("none");
-    @include grid-row($behavior: "nest");
-
-    margin-left: -(spacing("quarter"));
-    margin-right: -(spacing("quarter"));
-
     .slick-list {
         margin-left: remCalc(40px);
         margin-right: remCalc(40px);
@@ -75,13 +59,34 @@
     }
 
     img {
-        @include lazy-loaded-img;
+        bottom: 0;
+        left: 0;
+        margin: auto;
         max-height: 50px;
         max-width: 50px;
-        width: auto;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
     }
 }
+.productView-description {
+    width: 100%!important;
+    clear: both!important;
+}
+//need to figure out how to target all of these variations and only apply to smaller screens
+@media (max-width: 800px) {
+    .productView-description p span[style*="font-size: xx-large;"],
+    .productView-description p span[style*="font-size: x-large;"]{
+        line-height: 1!important;
+        padding-bottom: 15px;
+    }   
+}
 
+.product-view-section{
+    clear: both;
+    overflow: hidden;
+}
 .productView-thumbnail {
     @include grid-column(3);
     padding-left: spacing("quarter");
@@ -133,22 +138,30 @@
 }
 
 .productView-title {
-    font-size: fontSize("small");
-    margin: -(spacing("half")) 0 spacing("quarter");
+    font-size: 22px;
+    margin: 0 0 25px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #b40000;
+    line-height: 1.25;
 
     @include breakpoint("medium") {
-        margin-top: spacing("single");
+        margin-top: 0;
     }
 
     @include breakpoint("large") {
-        font-size: fontSize("largest");
+        font-size: 22px;
     }
+}
+.productView-details .productView-rating{
+    margin-bottom:15px;
 }
 
 .productView-brand {
     color: $productView-brand-link-color;
     font-size: fontSize("smaller");
     margin: 0 0 spacing("half");
+    display: none;
 
     @include breakpoint("large") {
         font-size: fontSize("small");
@@ -219,7 +232,7 @@
 
 .productView-info {
     @include clearfix;
-    margin-top: spacing("half");
+    margin-top: 0;
 
     @include breakpoint("small") {
         margin-top: 0;
@@ -228,7 +241,7 @@
     > :first-child {
 
         @include breakpoint("small") {
-            margin-top: spacing("single");
+            margin-top: 0;
         }
     }
 
@@ -240,16 +253,17 @@
 .productView-info-name,
 .productView-info-value {
     float: left;
+    margin-bottom:0;
 
     @include breakpoint("small") {
-        float: none;
+        float: left;
     }
 }
 
 .productView-info-name {
     clear: both;
-    margin-bottom: spacing("eighth");
-    margin-right: spacing("quarter");
+    margin-bottom: 15px;
+    margin-right: 20px;
 
     @include breakpoint("small") {
         font-family: fontFamily("headingSans");

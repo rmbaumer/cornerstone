@@ -5,27 +5,22 @@
 // 1. Corrects the spacing added by .navUser-or
 // 2. Can't use top: 50% because its container `.header` changes its height to
 //    100% when mobile menu is expanded
-// 3. Make the triangle for store credit dropdown centered
+// 3. Make the triangle for dropdown centered
 // 4. Needs to be 100% so its dropdown can take full width in mobile viewport
 // 5. Needs to be lower than logo zIndex, otherwise, logo is not clickable
-// 6. Make the triangle for currency dropdown right aligned
-// 7. Corrects mini cart positioned outside viewport. Since this resets right
-//    position, nudge dropdown away from the side of viewport in mobile viewport.
-// 8. This corrects mini cart dropdown arrow alignment in mobile viewport by
-//    setting the previous styles to medium breakpoint and adjusts for nudge in (7).
 //
 // -----------------------------------------------------------------------------
-
 .navUser {
     @include nav($style: "navBar", $wrapper: "nav");
     @include verticalPositionMiddle("absolute");
     right: 0;
-    top: 26px; // 2
+    top: remCalc(40); // 2
+    transform: none;
     width: 100%; // 4
     z-index: zIndex("lowest"); // 5.
-
     @include breakpoint("medium") {
-        padding: 0 spacing("single");
+        padding: 11px 0;
+        background: #424546;
         position: relative;
         right: auto;
         top: auto;
@@ -65,19 +60,22 @@
         }
     }
 }
-
-.navUser-section {
-    @include breakpoint("medium") {
-        position: relative; // 7
-    }
-}
-
-.navUser-action {
-    color: stencilColor("navUser-color");
-    font-weight: fontWeight("bold");
-    padding: spacing("base") spacing("half");
+.navUser-item a{
+    color: #fff;
     text-decoration: none;
-    text-transform: uppercase;
+    font-size: 12px;
+    font-family: "Open Sans", "Helvetica", "Arial", sans-serif;
+    line-height: 1.5;
+}
+.navUser-item a:hover{text-decoration: none;}
+.navUser ul .navUser-item:first-child{border-left:none;}
+.navUser-action {
+    color: #fff;
+    font-weight: 400;
+    font-size: 12px;
+    padding: 0;
+    text-decoration: none;
+    text-transform: capitalize;
 
     &:hover,
     &.is-open {
@@ -100,20 +98,6 @@
         fill: stencilColor("navUser-color");
         stroke: stencilColor("navUser-color");
         transition: all 0.15s ease;
-    }
-}
-
-.navUser-action--currencySelector + .dropdown-menu {
-    &:before {
-        // scss-lint:disable ImportantRule
-        left: auto !important; // 6
-        right: spacing("half"); // 6
-    }
-
-    &:after {
-        // scss-lint:disable ImportantRule
-        left: auto !important; // 6
-        right: spacing("half") + remCalc(2px); // 6
     }
 }
 
@@ -142,6 +126,10 @@
 
 .navUser-item {
     display: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.4);
+    margin-left: 11px !important;
+    padding-left: 12px !important;
+    line-height: 12px;
 
     @include breakpoint("medium") {
         display: block;
@@ -161,57 +149,54 @@
 
 .navUser-item--cart {
     display: block;
-
     .navUser-action {
-        color: stencilColor("navUser-color");
-
+        color: #fff;
+        height: remCalc(60);
+        padding: remCalc(10) 0;
+        text-align: center;
+        width: remCalc(60);
         // scss-lint:disable NestingDepth
         &:hover,
         &.is-open {
             color: stencilColor("navUser-color-hover");
         }
+        @include breakpoint("medium") {
+            color: #fff;
+            height: auto;
+            padding: 0;
+            text-align: left;
+            width: auto;
+        }
     }
-
     .dropdown-menu {
         max-width: remCalc(320px);
+        top: 29px !important;
 
         // scss-lint:disable NestingDepth
         &.is-open {
-            top: auto !important; // 7
-            left: auto !important; // 7
-            right: remCalc(5px); // 7
-            @include breakpoint("medium") {
-                right: 0; // 7
-            }
-
             &:before,
             &:after {
                 left: auto;
             }
 
             &:before {
-                right: spacing("half") - remCalc(5px); // 8
-                @include breakpoint("medium") {
-                    right: spacing("half"); // 8
-                }
+                right: spacing("half");
             }
 
             &:after {
-                right: spacing("half") - remCalc(3px); // 8
-                @include breakpoint("medium") {
-                    right: spacing("half") + remCalc(2px); // 8
-                }
+                right: spacing("half") + remCalc(2px);
             }
         }
     }
 }
+.navUser .previewCartAction-viewCart a{
+    color: #fff;
+}
+.navUser .previewCartItem-name a{
+    color: #989898;
+}
 
 .navUser-item-cartLabel {
-    display: none;
-
-    @include breakpoint("small") {
-        display: inline;
-    }
 }
 
 .navUser-item--compare {
@@ -228,7 +213,7 @@
 
         // scss-lint:disable NestingDepth
         + .navUser-action {
-            margin-right: -0.5rem; // 1
+            margin-right: 0; // 1
         }
     }
 
@@ -238,13 +223,32 @@
 }
 
 .navUser-or {
-    color: stencilColor("navUser-color");
+    color: #fff;
     cursor: default;
     display: inline-block;
-    margin: 0 remCalc(-12px);
+    margin: 0;
     padding: 0 2px;
     position: relative;
     z-index: 1;
+    font-size: 12px;
+    font-family: "Open Sans", "Helvetica", "Arial", sans-serif;
+    line-height: 1.5;
+}
+.navUser .icon-shopping-cart{
+    background: url('//www.firereplicas.com/content/shopping-cart.svg') center center no-repeat;
+    background-size: 100%;
+    display: block;
+    height: remCalc(20);
+    margin: 0 auto;
+    width: remCalc(20);
+    @include breakpoint("medium") {
+        background-image: url('//www.firereplicas.com/content/cartIcon.png');
+        display: initial;
+        height: remCalc(18);
+        margin-right: 4px;
+        padding:0 6px;
+        width: remCalc(18);
+    }
 }
 
 // Quick search
@@ -323,21 +327,23 @@
 // -----------------------------------------------------------------------------
 
 .countPill {
-    background-color: stencilColor("navUser-indicator-backgroundColor");
+    background-color: transparent;
     border-radius: 50%;
-    color: color("whites", "bright");
     display: none;
     font-size: fontSize("tiny");
-    font-weight: fontWeight("bold");
-    height: 20px; // 1
-    line-height: 20px; // 1
     margin-left: spacing("eighth");
     text-align: center;
-    width: 20px; // 1
+    font-family: "Arial", sans-serif;
+    @include breakpoint("medium") {
+        display: inline-block;
+    }
 }
 
 .countPill--positive {
-    display: inline-block;
+    display: none;
+    @include breakpoint("medium") {
+        display: inline-block;
+    }
 }
 
 .countPill--alt {

@@ -19,7 +19,6 @@
 .slick-next,
 .slick-prev {
     @include carouselOpaqueBackgrounds($slick-arrow-bgColor);
-    z-index: 1;
     border: 1px solid $slick-arrow-borderColor;
     height: remCalc(61px);
     margin-top: -(remCalc(30px));
@@ -95,20 +94,20 @@
     margin: 0;
 
     li {
-        @include square(32px);
+        @include square(17px);
         margin: 0;
         padding: remCalc(5px);
 
         // scss-lint:disable SelectorDepth, NestingDepth
         button,
         button::before {
-            @include square(15px);
+            @include square(12px);
             border-radius: 50%;
         }
 
         button {
             // scss-lint:disable NestingDepth
-            border: 1px solid $slick-dot-color;
+            border: 1px solid rgba(0, 0, 0, 0.15);
             display: inline-block;
             margin: 0;
             padding: 0;
@@ -118,7 +117,7 @@
 
             &:hover {
                 &::before {
-                    background: $slick-dot-color;
+                    background: transparent;
                 }
             }
         }
@@ -133,18 +132,11 @@
         &.slick-active {
             // scss-lint:disable NestingDepth
             button::before {
-                background: $slick-dot-color-active;
+                background: #b40000;
             }
         }
     }
 
-}
-
-//
-// Stencil override for product detail page thumbnail dots.
-// -----------------------------------------------------------------------------
-.productView .slick-dots  {
-    position: relative;
 }
 
 

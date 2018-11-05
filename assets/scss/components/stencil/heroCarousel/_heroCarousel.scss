@@ -18,55 +18,55 @@
 // -----------------------------------------------------------------------------
 
 .heroCarousel {
-    width: 1px;
-    min-width: 100%;
+    //margin: remCalc(-10) auto remCalc(20);
     margin-bottom: (spacing("double") + spacing("single"));
-    margin-top: -(spacing("single")); // 3
-
+    margin-top: 0px; // 3
+    margin-right: auto;
+    margin-left: auto;
+    max-width: remCalc(970);
     @include breakpoint("medium") {
         margin-top: -(spacing("single") + spacing("base")); // 3
     }
-
+    .js & { // 2
+        max-height: remCalc(0);
+        opacity: 0;
+        overflow: hidden;
+        transition: all 600ms ease-out;
+    }
     &.slick-initialized { // 2
-        max-height: remCalc(1000);
+        max-height: remCalc(300);
         opacity: 1;
     }
-
-    &:not(.slick-initialized) :not(.heroCarousel-slide--first).heroCarousel-slide {
-        display: none;
-    }
-
     .slick-next,
     .slick-prev {
-        top: 50%;
+        top: 20%;
+        @include breakpoint("medium") {
+            top: 50%;
+        }
+        display:none!important;
     }
-
     .slick-next {
         right: 15px;
-
         @include breakpoint("medium") {
-            right: 25px;
+            right: 0px;
         }
     }
-
     .slick-prev {
         left: 15px;
-
         @include breakpoint("medium") {
-            left: 25px;
+            left: 0px;
         }
     }
-
     .slick-dots {
         bottom: spacing("third");
-
+        text-align: right;
+        padding-right: 20px;
         @include breakpoint("medium") {
             bottom: spacing("single");
         }
-
         // scss-lint:disable SelectorDepth, NestingDepth
         li {
-            @include carouselOpaqueBackgrounds($slick-dot-bgColor);
+            background-color: transparent;
         }
     }
 }
